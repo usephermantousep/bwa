@@ -40,17 +40,19 @@ class UserServices {
     }
 
     var data = jsonDecode(response.body);
-    print(data['data']['user'].toString());
     User.token = data['data']['access_token'];
     User value = User.fromJson(data['data']['user']);
     if (pictureFile != null) {
       ApiReturnValue<String> result = await uploadProfilePicture(pictureFile);
       if (result.value != null) {
-        print(baseUrlimage + result.value);
-        value.copyWith(picturePath: baseUrlimage + result.value);
+        print(
+            "ini gabungan baseUrlImage dan Path dari upload harusnya tercopyWith : " +
+                baseUrlimage +
+                result.value);
+        value = value.copyWith(picturePath: baseUrlimage + result.value);
       }
     }
-
+    print(value);
     return ApiReturnValue(value: value);
   }
 
@@ -76,7 +78,7 @@ class UserServices {
       var data = jsonDecode(responseBody);
 
       String imagePath = data['data'][0];
-
+      print('ini dari upload : ' + imagePath);
       return ApiReturnValue(value: imagePath);
     } else {
       return ApiReturnValue(message: "Uploading Profile Picture Failed");

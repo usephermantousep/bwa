@@ -170,7 +170,7 @@ class _AddressPageState extends State<AddressPage> {
                           user, widget.password,
                           pictureFile: widget.pictureFile);
 
-                      UserState state = context.watch<UserCubit>().state;
+                      UserState state = context.read<UserCubit>().state;
 
                       if (state is UserLoaded) {
                         context.read<FoodCubit>().getFoods();
