@@ -8,6 +8,5 @@ part 'user_services.dart';
 part 'food_services.dart';
 part 'transactions_services.dart';
 
-String baseURlapi = "https://dev.usepdvlpr.online/api/";
-String baseUrlimage =
-    "https://dev.usepdvlpr.online/laravel/storage/app/public/";
+String baseURlapi = "http://192.168.0.162:9000/api/";
+String baseUrlimage = "http://192.168.0.162:9000/laravel/storage/app/public/";

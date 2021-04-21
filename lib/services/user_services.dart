@@ -1,12 +1,31 @@
 part of 'services.dart';
 
 class UserServices {
-  static Future<ApiReturnValue<User>> signIn(
-      String email, String password) async {
-    await Future.delayed(Duration(milliseconds: 500));
+  static Future<ApiReturnValue<User>> signIn(String email, String password,
+      {http.Client client}) async {
+    if (http.Client == null) {
+      client = http.Client();
+    }
 
-    return ApiReturnValue(value: mockUser);
-    // return ApiReturnValue(message: "Wrong email or password");
+    String url = baseURlapi + 'login';
+    Uri uri = Uri.parse(url);
+
+    var response = await client.post(uri,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body:
+            jsonEncode(<String, String>{'email': email, 'password': password}));
+    if (response.statusCode != 200) {
+      return ApiReturnValue(message: "Please try again");
+    }
+
+    var data = jsonDecode(response.body);
+
+    User.token = data['data']['acces_token'];
+    User value = User.fromJson(data['data']['user']);
+
+    return ApiReturnValue(value: value);
   }
 
   static Future<ApiReturnValue<User>> signUp(User user, String password,

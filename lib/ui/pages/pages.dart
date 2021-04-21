@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'general_page.dart';
 part 'sign_in_page.dart';
@@ -26,4 +27,5 @@ part 'illustration_page.dart';
 part 'succes_order.dart';
 part 'succes_sign_up.dart';
 part 'order_history_page.dart';
+part 'payment_method_page.dart';
 part 'profile_page.dart';
