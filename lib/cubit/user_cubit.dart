@@ -14,7 +14,8 @@ class UserCubit extends Cubit<UserState> {
     ApiReturnValue<User> result = await UserServices.signIn(email, password);
 
     if (result.value != null) {
-      emit(UserLoaded(result.value));
+      emit(UserLoaded(result.value
+          .copyWith(picturePath: baseUrlimage + result.value.picturePath)));
     } else {
       emit(UserLoadingFailed(result.message));
     }

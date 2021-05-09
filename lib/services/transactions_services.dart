@@ -13,7 +13,7 @@ class TransactionServices {
       "Authorization": "Bearer ${User.token}"
     });
 
-    if (response.statusCode == 200) {
+    if (response.statusCode != 200) {
       return ApiReturnValue(message: "Please try again");
     }
 
@@ -33,6 +33,7 @@ class TransactionServices {
 
     String uri = baseURlapi + 'checkout';
     Uri url = Uri.tryParse(uri);
+    print(User.token);
 
     var response = await client.post(
       url,
@@ -50,6 +51,7 @@ class TransactionServices {
         },
       ),
     );
+    print(response.statusCode.toString());
 
     if (response.statusCode != 200) {
       return ApiReturnValue(message: "Please try again");

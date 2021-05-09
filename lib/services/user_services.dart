@@ -3,7 +3,7 @@ part of 'services.dart';
 class UserServices {
   static Future<ApiReturnValue<User>> signIn(String email, String password,
       {http.Client client}) async {
-    if (http.Client == null) {
+    if (client == null) {
       client = http.Client();
     }
 
@@ -22,9 +22,8 @@ class UserServices {
 
     var data = jsonDecode(response.body);
 
-    User.token = data['data']['acces_token'];
+    User.token = data['data']['access_token'];
     User value = User.fromJson(data['data']['user']);
-
     return ApiReturnValue(value: value);
   }
 
@@ -64,14 +63,9 @@ class UserServices {
     if (pictureFile != null) {
       ApiReturnValue<String> result = await uploadProfilePicture(pictureFile);
       if (result.value != null) {
-        print(
-            "ini gabungan baseUrlImage dan Path dari upload harusnya tercopyWith : " +
-                baseUrlimage +
-                result.value);
         value = value.copyWith(picturePath: baseUrlimage + result.value);
       }
     }
-    print(value);
     return ApiReturnValue(value: value);
   }
 
@@ -97,7 +91,6 @@ class UserServices {
       var data = jsonDecode(responseBody);
 
       String imagePath = data['data'][0];
-      print('ini dari upload : ' + imagePath);
       return ApiReturnValue(value: imagePath);
     } else {
       return ApiReturnValue(message: "Uploading Profile Picture Failed");
